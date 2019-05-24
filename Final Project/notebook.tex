@@ -1,0 +1,2428 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Untitled}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{scipy}
+          \PY{k+kn}{import} \PY{n+nn}{sklearn} \PY{k}{as} \PY{n+nn}{sc}
+          \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+          \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{iolib}\PY{n+nn}{.}\PY{n+nn}{table} \PY{k}{import} \PY{p}{(}\PY{n}{SimpleTable}\PY{p}{,} \PY{n}{default\PYZus{}txt\PYZus{}fmt}\PY{p}{)}
+          \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{iolib}\PY{n+nn}{.}\PY{n+nn}{summary2} \PY{k}{import} \PY{n}{summary\PYZus{}col}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib} \PY{k}{as} \PY{n+nn}{mpl}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{cm} \PY{k}{as} \PY{n+nn}{cm}
+          \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{k+kn}{from} \PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display} \PY{k}{import} \PY{n}{display}
+          \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sample.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}202}]:} \PY{c+c1}{\PYZsh{}Method to describe model parameters. }
+          \PY{k}{def} \PY{n+nf}{sum\PYZus{}table}\PY{p}{(}\PY{n}{results}\PY{p}{,} \PY{n}{models}\PY{p}{,} \PY{n}{order}\PY{p}{,} \PY{n}{name}\PY{p}{)}\PY{p}{:}
+              \PY{n}{info\PYZus{}dict}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R\PYZhy{}squared}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}x.rsquared:.2f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No. observations}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{int(x.nobs):d\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}
+          
+          
+              \PY{n}{results\PYZus{}table} \PY{o}{=} \PY{n}{summary\PYZus{}col}\PY{p}{(}\PY{n}{results}\PY{o}{=} \PY{n}{results}\PY{p}{,}
+                                          \PY{n}{float\PYZus{}format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}0.4f}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                          \PY{n}{stars} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,}
+                                          \PY{n}{model\PYZus{}names}\PY{o}{=} \PY{n}{models}\PY{p}{,}
+                                          \PY{n}{info\PYZus{}dict}\PY{o}{=}\PY{n}{info\PYZus{}dict}\PY{p}{,}
+                                          \PY{n}{regressor\PYZus{}order} \PY{o}{=} \PY{n}{order}\PY{p}{)}
+              \PY{n}{results\PYZus{}table}\PY{o}{.}\PY{n}{add\PYZus{}title}\PY{p}{(}\PY{n}{name}\PY{p}{)}
+              \PY{k}{return} \PY{n}{results\PYZus{}table}
+\end{Verbatim}
+
+
+    \subsubsection{Part I: Question 1}\label{part-i-question-1}
+
+\subparagraph{Model 1: 3 explanatory variables plus a
+constant:}\label{model-1-3-explanatory-variables-plus-a-constant}
+
+\(morekids = \beta_0 + \beta_1* educm' + \beta_2*agem' + \beta_3*agefstm' + \epsilon\)
+
+\subparagraph{Model2: Full set of dummy variables for mother's eduction,
+mother's age and mother's age at first
+birth.}\label{model2-full-set-of-dummy-variables-for-mothers-eduction-mothers-age-and-mothers-age-at-first-birth.}
+
+Let \(\theta\) be a vector containing the coefficient for the dummies of
+mother's education. \(D_1= (educ_0,educ1,...educ_{20})'\)
+
+\(morekids = \theta_1*D_0' + \beta_1*agem' + \beta_2*agefstm' + \epsilon\)
+
+\subparagraph{Model3: Full set of dummy variables for mother's
+eduction,a full set of dummy variables for mother's age and a full set
+of dummy variables for mother's age at first
+birth.}\label{model3-full-set-of-dummy-variables-for-mothers-eductiona-full-set-of-dummy-variables-for-mothers-age-and-a-full-set-of-dummy-variables-for-mothers-age-at-first-birth.}
+
+Let \(\theta_2\) be a vector containing the coefficeint for the dummies
+of mother's age \(D_2 = (agem_{21}, agem_{22},...,agem_{35})'\)
+
+Let \(\theta_3\) be a vector containing the coefficeint for the dummies
+of mother's age at first birth
+\(D_3 = (agefstm_{15}, agefsm_{16},...,agefstm_{33})'\)
+
+\(morekids = \theta_1*D_1' + \theta_2*D_2' + \theta_3*D_3' + \epsilon\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}136}]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Model 1 \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+          \PY{c+c1}{\PYZsh{}Output Variable}
+          \PY{n}{Y} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{}Predictors}
+          \PY{n}{X1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{X1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X1} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X1}\PY{p}{)}
+          
+          \PY{n}{M1} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{X1}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Model 2 \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+          \PY{n}{Y} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}Constructs and appends a set of dummies to the predictor matrix.}
+          \PY{n}{dummies} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{prefix} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{drop\PYZus{}first} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{educD} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educyear\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{21}\PY{p}{)}\PY{p}{]}
+              
+          \PY{n}{X2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X2} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X2}\PY{p}{)}
+          \PY{n}{X2} \PY{o}{=} \PY{n}{X2}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{dummies}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{left\PYZus{}on} \PY{o}{=} \PY{n}{X2}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{right\PYZus{}on} \PY{o}{=} \PY{n}{dummies}\PY{o}{.}\PY{n}{index} \PY{p}{)}
+          \PY{n}{M2} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{X2}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Model 3 \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+          \PY{n}{Y} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X3} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{X3} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}
+              \PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{label}\PY{p}{]}\PY{p}{,} \PY{n}{prefix} \PY{o}{=} \PY{n}{label}\PY{p}{,} \PY{n}{drop\PYZus{}first} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}\PYZbs{}
+               \PY{k}{for} \PY{n}{label} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}
+          
+          \PY{p}{)}
+          \PY{n}{M3} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{X3}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}137}]:} \PY{n}{summary} \PY{o}{=} \PY{n}{sum\PYZus{}table}\PY{p}{(}\PY{p}{[}\PY{n}{M1}\PY{p}{,} \PY{n}{M2}\PY{p}{,} \PY{n}{M3}\PY{p}{]}\PY{p}{,} \PYZbs{}
+                    \PY{p}{[} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n+nb}{list}\PY{p}{(}\PY{n}{X3}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Table 3 \PYZhy{} Reduced form for the probability of being on Welfare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \paragraph{Summary table for the corresponding models r-squared,
+adjusted r-squared and Akaike information criterion
+(AIC)}\label{summary-table-for-the-corresponding-models-r-squared-adjusted-r-squared-and-akaike-information-criterion-aic}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}138}]:} \PY{c+c1}{\PYZsh{}Retreiving r\PYZhy{}squared, adjusted\PYZhy{}r\PYZhy{}squared and Akaike information criterion.}
+          \PY{n}{model} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{R2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Adjusted R2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AIC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{model1} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{M1}\PY{o}{.}\PY{n}{rsquared}\PY{p}{,}\PY{n}{M1}\PY{o}{.}\PY{n}{rsquared\PYZus{}adj}\PY{p}{,}\PY{n}{M1}\PY{o}{.}\PY{n}{aic}\PY{p}{]}
+          \PY{n}{model2} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{M2}\PY{o}{.}\PY{n}{rsquared}\PY{p}{,}\PY{n}{M2}\PY{o}{.}\PY{n}{rsquared\PYZus{}adj}\PY{p}{,}\PY{n}{M2}\PY{o}{.}\PY{n}{aic}\PY{p}{]}
+          \PY{n}{model3} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{M3}\PY{o}{.}\PY{n}{rsquared}\PY{p}{,}\PY{n}{M3}\PY{o}{.}\PY{n}{rsquared\PYZus{}adj}\PY{p}{,}\PY{n}{M3}\PY{o}{.}\PY{n}{aic}\PY{p}{]}
+          \PY{n}{model}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{model1}
+          \PY{n}{model}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{model2}
+          \PY{n}{model}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{n}{model3}
+          \PY{n}{display}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Model}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+             R2  Adjusted R2            AIC
+Model                                      
+1      0.070460     0.070448  310226.908695
+2      0.075489     0.075399  308984.090414
+3      0.419697     0.419570  309336.645114
+    \end{verbatim}
+
+    
+    \paragraph{Probabilities of having 1(morekids = 1) and corresponding
+standard
+errors:}\label{probabilities-of-having-1morekids-1-and-corresponding-standard-errors}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  the difference in probabilities for mothers age 30 vs 35
+\item
+  the difference in probabilities for mothers with 12 versus 16 years of
+  education
+\item
+  the difference in probabilities for mothers who had a first child at
+  age 20 versus 25.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}139}]:} \PY{c+c1}{\PYZsh{} (1) }
+          \PY{n}{m30\PYZus{}35} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pr(35)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pr(30)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pr(35) \PYZhy{} pr(30)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{agem30} \PY{o}{=} \PY{n}{X3}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{X3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem\PYZus{}30}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{agem35} \PY{o}{=} \PY{n}{X3}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{X3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem\PYZus{}35}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{p30} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{M3}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{agem30}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n}{p35} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{M3}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{agem35}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n}{diff} \PY{o}{=} \PY{n}{p35} \PY{o}{\PYZhy{}} \PY{n}{p30}
+          \PY{n}{m30\PYZus{}35}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{p35}\PY{p}{,}\PY{n}{p30}\PY{p}{,}\PY{n}{diff}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{} (2)}
+          \PY{n}{educ12\PYZus{}16} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pr(12)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pr(16)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pr(12) \PYZhy{} pr(16)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{educ12} \PY{o}{=} \PY{n}{X3}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{X3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm\PYZus{}12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{educ16} \PY{o}{=} \PY{n}{X3}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{X3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm\PYZus{}16}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{p12} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{M3}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{educ12}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n}{p16} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{M3}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{educ16}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n}{diff1} \PY{o}{=} \PY{n}{p12} \PY{o}{\PYZhy{}} \PY{n}{p16}
+          \PY{n}{educ12\PYZus{}16}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{p12}\PY{p}{,}\PY{n}{p16}\PY{p}{,}\PY{n}{diff1}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{} (3)}
+          \PY{n}{agefstm25\PYZus{}20} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pr(20)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pr(25)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{diff2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{agefstm20} \PY{o}{=} \PY{n}{X3}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{X3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm\PYZus{}20}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{agefstm25} \PY{o}{=} \PY{n}{X3}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{X3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm\PYZus{}25}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{p20} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{M3}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{agefstm20}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n}{p25} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{M3}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{agefstm25}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n}{diff2} \PY{o}{=} \PY{n}{p20} \PY{o}{\PYZhy{}} \PY{n}{p25}
+          \PY{n}{agefstm25\PYZus{}20}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{p20}\PY{p}{,}\PY{n}{p25}\PY{p}{,}\PY{n}{diff2}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}140}]:} \PY{n}{display}\PY{p}{(}\PY{n}{m30\PYZus{}35}\PY{p}{)}
+          
+          \PY{n}{display}\PY{p}{(}\PY{n}{educ12\PYZus{}16}\PY{p}{)}
+          
+          \PY{n}{display}\PY{p}{(}\PY{n}{agefstm25\PYZus{}20}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+     pr(35)    pr(30)  pr(35) - pr(30)
+0  0.452797  0.358617          0.09418
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+   pr(12)    pr(16)  pr(12) - pr(16)
+0  0.3618  0.306319         0.055481
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+    pr(20)    pr(25)     diff2
+0  0.40308  0.242847  0.160233
+    \end{verbatim}
+
+    
+    \paragraph{Graph the actual and predicted probabilities from M1, M2 and
+M3 of having morekids = 1 for 35 year old mothers with 12 years of
+education who had their first child at ages
+17,18,....30}\label{graph-the-actual-and-predicted-probabilities-from-m1-m2-and-m3-of-having-morekids-1-for-35-year-old-mothers-with-12-years-of-education-who-had-their-first-child-at-ages-1718....30}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}141}]:} \PY{n}{X1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{M1}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X1}\PY{p}{)}
+          \PY{n}{X2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{M2}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X2}\PY{p}{)}
+          \PY{n}{X3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{M3}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X3}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}142}]:} \PY{n}{actual} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{35}\PY{p}{)} \PY{o}{\PYZam{}} \PYZbs{}
+                          \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{predictM1} \PY{o}{=} \PY{n}{X1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{X1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{35}\PY{p}{)} \PY{o}{\PYZam{}} \PYZbs{}
+                             \PY{p}{(}\PY{n}{X1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{predictM2} \PY{o}{=} \PY{n}{X2}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{X2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{35}\PY{p}{)} \PY{o}{\PYZam{}} \PYZbs{}
+                             \PY{p}{(}\PY{n}{X2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm\PYZus{}12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{predictM3} \PY{o}{=} \PY{n}{X3}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{X3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem\PYZus{}35}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZam{}} \PYZbs{}
+                             \PY{p}{(}\PY{n}{X3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm\PYZus{}12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}
+          \PY{n}{predictM3}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{35}\PY{p}{)} \PY{o}{\PYZam{}} \PYZbs{}
+                          \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{predictM3} \PY{o}{=} \PY{n}{predictM3}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/ipykernel\_launcher.py:5: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  """
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}143}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}facecolor}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}FFFFFF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Probability of Having More Kids for Mothers of Age 35 and 12 Years Education}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{18}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mother}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s Age at First Birth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pr(Morekids = 1)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{[}\PY{n}{actual}\PY{p}{,} \PY{n}{predictM1}\PY{p}{,} \PY{n}{predictM2}\PY{p}{,} \PY{n}{predictM3}\PY{p}{]}\PY{p}{:}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{)}
+              
+          \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{medium}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}143}]:} <matplotlib.legend.Legend at 0x1627646a0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subparagraph{Based on your results and any other evidence you can
+develop, compare the advantages and disadvantages of M1, M2,
+M3:}\label{based-on-your-results-and-any-other-evidence-you-can-develop-compare-the-advantages-and-disadvantages-of-m1-m2-m3}
+
+\begin{verbatim}
+Although model 3 has the lowest RMSE, it's only a slight difference. Looking at the plotted predicted values, we can see that model 1 is overstating the predicted values consistently. Further, looking at the residual plot, we notice that the probabilities are following each other with marginal difference for model 3 ~22. Model 3 does the overall best job predicting the event having more children, it could be such that describing the event morekids requires a somewhat simpler model such as model 2 or 1. 
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}144}]:} \PY{k}{def} \PY{n+nf}{rmse}\PY{p}{(}\PY{n}{predicted}\PY{p}{,} \PY{n}{actual}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{(}\PY{n}{actual} \PY{o}{\PYZhy{}} \PY{n}{predicted}\PY{p}{)}\PY{o}{*}\PY{o}{*} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          
+          \PY{k}{def} \PY{n+nf}{mae}\PY{p}{(}\PY{n}{predicted}\PY{p}{,} \PY{n}{actual}\PY{p}{)}\PY{p}{:}
+              \PY{k}{return} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{actual} \PY{o}{\PYZhy{}} \PY{n}{predicted}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}145}]:} \PY{n}{pM1} \PY{o}{=} \PY{n}{M1}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X1}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+          \PY{n}{pM2} \PY{o}{=} \PY{n}{M2}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X2}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+          \PY{n}{pM3} \PY{o}{=} \PY{n}{M3}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X3}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{values}
+          
+          \PY{n}{M1\PYZus{}rmse} \PY{o}{=} \PY{n}{rmse}\PY{p}{(}\PY{n}{pM1}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n}{M2\PYZus{}rmse} \PY{o}{=} \PY{n}{rmse}\PY{p}{(}\PY{n}{pM2}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n}{M3\PYZus{}rmse} \PY{o}{=} \PY{n}{rmse}\PY{p}{(}\PY{n}{pM3}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          
+          \PY{n}{M1\PYZus{}mae} \PY{o}{=} \PY{n}{mae}\PY{p}{(}\PY{n}{pM1}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n}{M2\PYZus{}mae} \PY{o}{=} \PY{n}{mae}\PY{p}{(}\PY{n}{pM2}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          \PY{n}{M3\PYZus{}mae} \PY{o}{=} \PY{n}{mae}\PY{p}{(}\PY{n}{pM3}\PY{p}{,} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}
+          
+          
+          
+          \PY{n}{rmse} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{M1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{M1\PYZus{}rmse}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{M2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{M2\PYZus{}rmse}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{M3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{M3\PYZus{}rmse}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{MAE} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{M1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{M1\PYZus{}mae}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{M2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{M2\PYZus{}mae}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{M3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{M3\PYZus{}mae}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}146}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Models RMSE}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{18}\PY{p}{)}
+          \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Loss}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}facecolor}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}FFFFFF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{rmse}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{rmse}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Loss}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Model}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{set\PYZus{}facecolor}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}FFFFFF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{MAE}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{MAE}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{o}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}146}]:} [<matplotlib.lines.Line2D at 0x166773240>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}234}]:} \PY{n}{fig}\PY{p}{,} \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}facecolor}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}FFFFFF}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mother}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s Age at First Birth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+          \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Residual)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{15}\PY{p}{)}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{[}\PY{n}{M1}\PY{o}{.}\PY{n}{resid}\PY{p}{,} \PY{n}{M2}\PY{o}{.}\PY{n}{resid}\PY{p}{,} \PY{n}{M3}\PY{o}{.}\PY{n}{resid}\PY{p}{]}\PY{p}{:}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{i}\PY{p}{,} \PY{n}{linewidth} \PY{o}{=} \PY{l+m+mi}{2}\PY{p}{)}
+              \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlim}\PY{p}{(}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+m+mi}{28}\PY{p}{)}
+              
+          \PY{n}{ax}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{fontsize} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{medium}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}234}]:} <matplotlib.legend.Legend at 0x1a729acc0>
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    We can see that model 3 is doing the best job at minimizing RMSE,
+however it only does so marginally. It appears that even though model 3
+performs well in-sample, its out-of sample predictions are further off
+(as seen by our graph of actual vs. predicted probability for mothers
+who are 35 with 12 years of education). This means that model 3 is
+overfitting to our data, and thus does not serve as well a predictor as
+the other models.
+
+    \subsubsection{Part I: Question 2}\label{part-i-question-2}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  Starting from M3, estimate an extended model that also includes dad's
+  age, dad's education, and 3 variables for mother's race/ethnicity:
+  blackm, hispm, othracem
+\end{enumerate}
+
+The updated model follows:
+
+\(morekids = \theta_1*D_1' + \theta_2*D_2' + \theta_3*D_3' + \beta_1*aged' + \beta_2*educd' + \beta_3*blackm' + \beta_4*hispm'+ beta_5*othracem' + \epsilon\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}147}]:} \PY{n}{X4} \PY{o}{=} \PY{n}{X3}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+          \PY{n}{X4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blackm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blackm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hispm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hispm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{othracem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{othracem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{M4} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{X4}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{} sklearn has nice methods for computing the individual F\PYZhy{}statistics}
+\end{Verbatim}
+
+
+    To the added model, we'd like to test whether the new variables are
+excludable or not. We will do so using the Chow test.
+
+We will have 5 test to compute. Informally under the null: the
+restricted model(M3) fits as well as the full model.
+
+\begin{quote}
+\(H_0: \beta_1 = \beta_2 = \beta_3 = \beta_4 = \beta_5 =0\)
+\end{quote}
+
+\begin{quote}
+\(H_\alpha\): at least one \(\beta\) is non-zero
+\end{quote}
+
+Where we reject if: \(F > f(0.05, df_1,df_2)\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}148}]:} \PY{k+kn}{from} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{stats}\PY{n+nn}{.}\PY{n+nn}{anova} \PY{k}{import} \PY{n}{anova\PYZus{}lm}
+          
+          \PY{c+c1}{\PYZsh{}Adding blackm:}
+          \PY{n}{m\PYZus{}blackm} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{X4}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hispm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{othracem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          \PY{n}{anova\PYZus{}result1} \PY{o}{=} \PY{n}{anova\PYZus{}lm}\PY{p}{(}\PY{n}{M3}\PY{p}{,}\PY{n}{m\PYZus{}blackm}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}Adding hispm:}
+          \PY{n}{m\PYZus{}hispm} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{X4}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blackm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{othracem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          \PY{n}{anova\PYZus{}result2} \PY{o}{=} \PY{n}{anova\PYZus{}lm}\PY{p}{(}\PY{n}{M3}\PY{p}{,}\PY{n}{m\PYZus{}hispm}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}Adding aged:}
+          \PY{n}{m\PYZus{}aged} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{X4}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blackm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hispm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{othracem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          \PY{n}{anova\PYZus{}result3} \PY{o}{=} \PY{n}{anova\PYZus{}lm}\PY{p}{(}\PY{n}{M3}\PY{p}{,}\PY{n}{m\PYZus{}aged}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}Adding educd:}
+          \PY{n}{m\PYZus{}educd} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{X4}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blackm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hispm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{othracem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          \PY{n}{anova\PYZus{}result4} \PY{o}{=} \PY{n}{anova\PYZus{}lm}\PY{p}{(}\PY{n}{M3}\PY{p}{,}\PY{n}{m\PYZus{}educd}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}Adding othracem:}
+          \PY{n}{m\PYZus{}oth} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{X4}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blackm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hispm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          \PY{n}{anova\PYZus{}result5} \PY{o}{=} \PY{n}{anova\PYZus{}lm}\PY{p}{(}\PY{n}{M3}\PY{p}{,}\PY{n}{m\PYZus{}oth}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/scipy/stats/\_distn\_infrastructure.py:879: RuntimeWarning: invalid value encountered in greater
+  return (self.a < x) \& (x < self.b)
+/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/scipy/stats/\_distn\_infrastructure.py:879: RuntimeWarning: invalid value encountered in less
+  return (self.a < x) \& (x < self.b)
+/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/scipy/stats/\_distn\_infrastructure.py:1821: RuntimeWarning: invalid value encountered in less\_equal
+  cond2 = cond0 \& (x <= self.a)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}149}]:} \PY{n}{display}\PY{p}{(}\PY{n}{anova\PYZus{}result1}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{anova\PYZus{}result2}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{anova\PYZus{}result3}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{anova\PYZus{}result4}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{anova\PYZus{}result5}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+   df_resid           ssr  df_diff    ss_diff           F        Pr(>F)
+0  236407.0  51196.035247      0.0        NaN         NaN           NaN
+1  236406.0  51151.367078      1.0  44.668169  206.442637  8.585461e-47
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+   df_resid           ssr  df_diff    ss_diff           F        Pr(>F)
+0  236407.0  51196.035247      0.0        NaN         NaN           NaN
+1  236406.0  51136.446419      1.0  59.588828  275.481724  7.858040e-62
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+   df_resid           ssr  df_diff   ss_diff          F        Pr(>F)
+0  236407.0  51196.035247      0.0       NaN        NaN           NaN
+1  236406.0  51187.082368      1.0  8.952878  41.348599  1.276042e-10
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+   df_resid           ssr  df_diff   ss_diff         F    Pr(>F)
+0  236407.0  51196.035247      0.0       NaN       NaN       NaN
+1  236406.0  51195.991627      1.0  0.043619  0.201419  0.653578
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+   df_resid           ssr  df_diff  ss_diff          F        Pr(>F)
+0  236407.0  51196.035247      0.0      NaN        NaN           NaN
+1  236406.0  51190.694357      1.0  5.34089  24.664998  6.825925e-07
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}150}]:} \PY{n}{models} \PY{o}{=} \PY{p}{[}\PY{n}{anova\PYZus{}result1}\PY{p}{,}\PY{n}{anova\PYZus{}result2}\PY{p}{,} \PY{n}{anova\PYZus{}result3}\PY{p}{,} \PY{n}{anova\PYZus{}result4}\PY{p}{,} \PY{n}{anova\PYZus{}result5}\PY{p}{]}
+          \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.05}
+          \PY{n}{p\PYZus{}values} \PY{o}{=} \PY{p}{[}\PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{f}\PY{o}{.}\PY{n}{cdf}\PY{p}{(}\PY{l+m+mf}{0.05}\PY{p}{,}\PY{l+m+mi}{53}\PY{p}{,}\PY{l+m+mi}{54}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{models}\PY{p}{]}
+          \PY{k}{for} \PY{n}{p\PYZus{}value} \PY{o+ow}{in} \PY{n}{p\PYZus{}values}\PY{p}{:}
+              \PY{k}{if} \PY{n}{p\PYZus{}value} \PY{o}{\PYZgt{}} \PY{n}{alpha}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{reject}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fail to reject}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fail to reject
+Fail to reject
+Fail to reject
+Fail to reject
+Fail to reject
+
+    \end{Verbatim}
+
+    Since we fail to reject the null for the five models, we can conclude
+that we can exclude each additional covariate.
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Evaluating the potential use of samesex as an "exogenous" determinant
+  of family size.
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Adding samesex to model 4.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}151}]:} \PY{n}{X5} \PY{o}{=} \PY{n}{X4}
+          \PY{n}{X5}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{samesex}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{M5} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{X5}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    Average effect on having more kids given that the two children before
+have the same sex.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}152}]:} \PY{c+c1}{\PYZsh{}Conditioning on samesex.}
+          \PY{n}{samesex} \PY{o}{=} \PY{n}{X5}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{X5}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{n}{psex} \PY{o}{=} \PY{n}{M5}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{samesex}\PY{p}{)}
+          
+          \PY{n}{display}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{psex}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+0.4064213195845144
+    \end{verbatim}
+
+    
+    \(pr(morekids = 1|samesex = 1)= 0.4064\)
+
+Some people have claimed that families only care about having at least 1
+son -- they don't care about having daughters. To test this hypothesis
+we will test the difference in means.
+
+let:
+
+\$\hat{\theta} = E(morekids = 1 \textbar{} son) - E(morekids = 1
+\textbar{} girl) \$
+
+then we will follow the following for our t-test:
+
+\(Z|\theta \sim \mathcal{N}(\frac{\sqrt(N)\theta}{\sqrt(\frac{\sigma^2_1}{1-\lambda}+ \frac{\sigma^2_2}{\lambda}},1)\)
+
+Under the null \(\theta = 0\) :
+
+\$ Z\textbar{}\theta = 0 \sim \mathcal{N}(0,1) \$
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}153}]:} \PY{n}{mu\PYZus{}boy} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{boys2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{morekids}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+          \PY{n}{mu\PYZus{}girl} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{girls2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{t2}\PY{p}{,} \PY{n}{p2} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{ttest\PYZus{}ind}\PY{p}{(}\PY{n}{mu\PYZus{}boy}\PY{p}{,}\PY{n}{mu\PYZus{}girl}\PY{p}{,} \PY{n}{equal\PYZus{}var} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{t = }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{t2}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{p = }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{p2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+t = -7.288955786850143
+p = 3.143122079678091e-13
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}154}]:} \PY{c+c1}{\PYZsh{}interpret via p\PYZhy{}value :}
+          
+          \PY{k}{if} \PY{n}{p2} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.05}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Accept null hypothesis that the means are equal.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{k}{else}\PY{p}{:}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reject the null hypothesis that the means are equal.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Reject the null hypothesis that the means are equal.
+
+    \end{Verbatim}
+
+    Judging from the significantly low p-value, we can conclude that there
+is a significant difference between families that have two boys to two
+girls for the probability of having more kids.
+
+\begin{enumerate}
+\def\labelenumi{(\roman{enumi})}
+\setcounter{enumi}{2}
+\item
+\end{enumerate}
+
+We are concerned that the sex composition of children is not truly
+random. To test this, we will consider a linear probability model in
+which we want to explain the event of samesex = 1. We will do so using
+the information on mother's and father's age, education, race/ethnicity
+and their ages when they started having children.
+
+Denote the information set
+\(I = (1,agem,aged, educm, educd,blackm, blackd,hispm, hispd,othracem, othraraced, agefstm, agefstd)'\)
+
+Using our information set \(I\), if sex composition in the space of our
+information set is truly random it will follow:
+
+the solution to the blp:
+
+\(\mathbb{E}^*[samesex|I] = \mathbb{E}^*[samesex|1]\)
+
+By the projection theorem, the best linear predictor is simply the
+average of samesex.
+
+However, we can be more specific about this. what exactly is samsex? the
+probability of having same sex is:
+
+\(P[boy1 \cap boy2] = P[girl1 \cap girl2]\)
+
+If sex composition is truly random, this event is just the product of
+the two events. So what we really do want to test is whether we can
+predict, using the information set, the event that the first child is a
+boy or girl and prove:
+
+\(\mathbb{E}^*[boy1|I] = \mathbb{E}^*[boy1|1]\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}155}]:} \PY{n}{X} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blackm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blackm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blackd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blackd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hispm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hispm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hispd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hispd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{othracem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{othracem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{othraced}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{othraced}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{X} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+          \PY{n}{Y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{boy1st}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{display}\PY{p}{(}\PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<class 'statsmodels.iolib.summary.Summary'>
+"""
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                 boy1st   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.000
+Method:                 Least Squares   F-statistic:                    0.4656
+Date:                Fri, 17 May 2019   Prob (F-statistic):              0.935
+Time:                        03:13:25   Log-Likelihood:            -1.7151e+05
+No. Observations:              236459   AIC:                         3.431e+05
+Df Residuals:                  236446   BIC:                         3.432e+05
+Df Model:                          12                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.4998      0.011     46.131      0.000       0.479       0.521
+agem           0.0011      0.002      0.574      0.566      -0.003       0.005
+aged          -0.0005      0.002     -0.256      0.798      -0.004       0.003
+educd         -0.0001      0.000     -0.304      0.761      -0.001       0.001
+educm       -5.33e-05      0.001     -0.092      0.927      -0.001       0.001
+blackm         0.0027      0.022      0.122      0.903      -0.041       0.047
+blackd        -0.0077      0.022     -0.346      0.729      -0.051       0.036
+hispm         -0.0001      0.014     -0.009      0.992      -0.028       0.028
+hispd         -0.0013      0.014     -0.094      0.925      -0.028       0.026
+othracem      -0.0023      0.009     -0.245      0.806      -0.020       0.016
+othraced       0.0034      0.010      0.351      0.725      -0.015       0.022
+agefstm       -0.0009      0.002     -0.456      0.648      -0.005       0.003
+agefstd        0.0008      0.002      0.410      0.682      -0.003       0.004
+==============================================================================
+Omnibus:                      136.417   Durbin-Watson:                   1.999
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):            39406.230
+Skew:                          -0.059   Prob(JB):                         0.00
+Kurtosis:                       1.004   Cond. No.                     1.77e+03
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.77e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.
+"""
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+<class 'statsmodels.iolib.summary.Summary'>
+"""
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                samesex   R-squared:                       0.000
+Model:                            OLS   Adj. R-squared:                 -0.000
+Method:                 Least Squares   F-statistic:                    0.8536
+Date:                Fri, 17 May 2019   Prob (F-statistic):              0.595
+Time:                        03:13:25   Log-Likelihood:            -1.7160e+05
+No. Observations:              236459   AIC:                         3.432e+05
+Df Residuals:                  236446   BIC:                         3.434e+05
+Df Model:                          12                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.5128      0.011     47.316      0.000       0.492       0.534
+agem          -0.0013      0.002     -0.668      0.504      -0.005       0.002
+aged           0.0006      0.002      0.306      0.759      -0.003       0.004
+educd          0.0002      0.000      0.514      0.607      -0.001       0.001
+educm      -7.208e-05      0.001     -0.124      0.901      -0.001       0.001
+blackm        -0.0137      0.022     -0.614      0.539      -0.058       0.030
+blackd         0.0079      0.022      0.356      0.722      -0.036       0.051
+hispm          0.0106      0.014      0.747      0.455      -0.017       0.038
+hispd         -0.0125      0.014     -0.903      0.367      -0.040       0.015
+othracem       0.0002      0.009      0.018      0.985      -0.018       0.018
+othraced      -0.0078      0.010     -0.810      0.418      -0.027       0.011
+agefstm        0.0014      0.002      0.739      0.460      -0.002       0.005
+agefstd       -0.0008      0.002     -0.418      0.676      -0.004       0.003
+==============================================================================
+Omnibus:                       17.548   Durbin-Watson:                   1.993
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):            39403.007
+Skew:                          -0.021   Prob(JB):                         0.00
+Kurtosis:                       1.001   Cond. No.                     1.77e+03
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 1.77e+03. This might indicate that there are
+strong multicollinearity or other numerical problems.
+"""
+    \end{verbatim}
+
+    
+    From the probability model above, we can see from multiple directions
+that the probability of having a boy is independent of the information
+set. Hence, we can conclude that the event having a boy or girl is
+independent of the information set. Further note that since we included
+a constant, we get the mean event of having a boy which is is roughly
+50\%.
+
+    \paragraph{Question 3}\label{question-3}
+
+\paragraph{Data Cleansing}\label{data-cleansing}
+
+First note that there exist some NaN's in mother's wage:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}156}]:} \PY{n}{df}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}156}]:} KIDCOUNT          0
+          boy1st            0
+          boy2nd            0
+          boys2             0
+          girls2            0
+          samesex           0
+          morekids          0
+          blackm            0
+          hispm             0
+          whitem            0
+          othracem          0
+          blackd            0
+          hispd             0
+          whited            0
+          othraced          0
+          educm             0
+          educd             0
+          agefstm           0
+          agefstd           0
+          workedm           0
+          workedd           0
+          hrsweekd          0
+          hrsweekm          0
+          annhrsm           0
+          annhrsd           0
+          wnhm              0
+          wnhd              0
+          earningsm         0
+          earningsd         0
+          faminc            0
+          famearn           0
+          agem              0
+          aged              0
+          weeksm            0
+          weeksd            0
+          wagem        110157
+          waged             0
+          expm              0
+          expd              0
+          st                0
+          rv                0
+          dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}157}]:} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wagem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weeksm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}157}]:}        wagem  weeksm
+          0        NaN       0
+          1  25.954494      30
+          2        NaN       0
+          3        NaN       0
+          4  15.608967      22
+\end{Verbatim}
+            
+    So this seem to be an easy fix. The NaN values for wagem corresponds to
+mother working 0 weeks. Hence, she does not work.
+
+Since NaN values only exist in the space of wagem we can simply apply
+fillna.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}158}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wagem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wagem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}159}]:} \PY{k}{def} \PY{n+nf}{polynomial}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{column}\PY{p}{,}  \PY{n}{n}\PY{p}{)}\PY{p}{:}
+              \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}column\PYZcb{}}\PY{l+s+s1}{\PYZca{}}\PY{l+s+si}{\PYZob{}n\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{column}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{n}{n}
+              \PY{k}{return} \PY{n}{df}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}160}]:} \PY{c+c1}{\PYZsh{} Setting up the control variables:}
+          \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educd\PYZlt{}12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{12}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm\PYZlt{}12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{12}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          \PY{n}{polynomial}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{polynomial}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{polynomial}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          \PY{n}{polynomial}\PY{p}{(}\PY{n}{df}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}
+          
+          \PY{n}{control\PYZus{}variables} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstd\PYZca{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm\PYZca{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged\PYZca{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem\PYZca{}2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm\PYZlt{}12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educd\PYZlt{}12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blackm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hispm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{othracem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{not\PYZus{}work}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wagem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}161}]:} \PY{c+c1}{\PYZsh{}W1}
+          \PY{n}{Y} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{Y}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{not\PYZus{}work}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wagem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          \PY{n}{X1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{X1}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X1} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X1}\PY{p}{)}
+          
+          
+          \PY{n}{W1} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{X1}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}162}]:} \PY{c+c1}{\PYZsh{}W2}
+          \PY{n}{X2} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{control\PYZus{}variables}\PY{p}{]}
+          \PY{n}{X2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{X2} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X2}\PY{p}{)}
+          \PY{n}{W2} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{X2}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}163}]:} \PY{n}{W1\PYZus{}morekids} \PY{o}{=} \PY{n}{W1}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{W2\PYZus{}morekids} \PY{o}{=} \PY{n}{W2}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{display}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The coefficient for W1 : }\PY{l+s+si}{\PYZob{}W1\PYZus{}morekids\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The coefficient for W2 : }\PY{l+s+si}{\PYZob{}W2\PYZus{}morekids\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+'The coefficient for W1 : 0.11448965715553978'
+    \end{verbatim}
+
+    
+    
+    \begin{verbatim}
+'The coefficient for W2 : 0.15960795442094552'
+    \end{verbatim}
+
+    
+    We can see that W1 is biased. The reason for this is that model w1
+suffers from endogeneity where morekids are correlated with error term.
+Intuitively this make sense. For example, we can see that the
+\(pr[morekids|racem]\) where racem denotes the mother's ethnicity, is
+different. Once we control for these differences, the
+\(pr[work|morekids]\) we can see that the probability that a mother is
+working given morekids is higher.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}164}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{racem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{othracem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blackm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hispm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{idxmax}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{pointplot}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{morekids}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{racem}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data}\PY{o}{=}\PY{n}{df}\PY{p}{,} \PY{n}{join}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
+  return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\item
+\end{enumerate}
+
+We will now consider a casual model relating \(y_i = 1[work]\) to
+\(x_{1i} = morekids\)
+
+From the previous notes we may use \(samesex\) as a instrumental
+variable.
+
+Reduced form:
+
+\(work = \delta_0 + \delta_1*samesex' + \epsilon\)
+
+First Stage:
+
+\(morekids = \pi_0 + \pi_1*samesex' + u\)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}165}]:} \PY{n}{morekids} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{morekids} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{morekids}\PY{p}{)}
+          \PY{n}{z} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{z}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{z} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{z}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Reduced Form:}
+          \PY{n}{rf} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{z}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}First Stage:}
+          \PY{n}{fs} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{z}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          
+          \PY{k+kn}{from} \PY{n+nn}{linearmodels}\PY{n+nn}{.}\PY{n+nn}{iv} \PY{k}{import} \PY{n}{IV2SLS}
+          \PY{c+c1}{\PYZsh{}2SLS:}
+          \PY{n}{cm} \PY{o}{=} \PY{n}{IV2SLS}\PY{p}{(}\PY{n}{dependent} \PY{o}{=} \PY{n}{Y}\PY{p}{,} \PY{n}{exog} \PY{o}{=} \PY{n}{morekids}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{const}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                      \PY{n}{endog} \PY{o}{=} \PY{n}{morekids}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                      \PY{n}{instruments} \PY{o}{=} \PY{n}{z}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}166}]:} \PY{n}{summary} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reduced Form}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{First Stage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{summary}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{rf}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{const}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{fs}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{const}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{cm}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{const}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{summary}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{rf}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{fs}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{summary}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{cm}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}167}]:} \PY{n}{summary}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{constant}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}168}]:} \PY{n}{display}\PY{p}{(}\PY{n}{summary}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+         Reduced Form First Stage        IV
+constant     0.468576    0.339069  0.418691
+samesex    0.00990904   0.0673521         -
+morekids            -           -  0.147123
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}169}]:} \PY{n}{rf}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{fs}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}169}]:} 0.14712299120697359
+\end{Verbatim}
+            
+    Adding additional Covariates to our casual model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}170}]:} \PY{n}{variables} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{control\PYZus{}variables}\PY{p}{]}
+          \PY{n}{variables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{variables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{variables} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{variables}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Reduced Form:}
+          \PY{n}{rf1} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,}\PY{n}{variables}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}First Stage:}
+          \PY{n}{fs1} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{variables}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}2SLS:}
+          \PY{n}{cm1} \PY{o}{=} \PY{n}{IV2SLS}\PY{p}{(}\PY{n}{dependent} \PY{o}{=} \PY{n}{Y}\PY{p}{,}\PYZbs{}
+                      \PY{n}{exog} \PY{o}{=} \PY{n}{variables}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                      \PY{n}{endog} \PY{o}{=} \PY{n}{variables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                      \PY{n}{instruments} \PY{o}{=} \PY{n}{variables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}171}]:} \PY{n}{summary1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Reduced Form}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{First Stage}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{summary1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{rf1}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{const}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{fs1}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{const}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{cm1}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{const}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{summary1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{rf1}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{fs1}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{summary1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{cm1}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{display}\PY{p}{(}\PY{n}{summary1}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+  Reduced Form First Stage        IV
+0     0.259052   -0.539609  0.330479
+1    0.0091269   0.0689503         -
+2            -           -  0.132369
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}172}]:} \PY{n}{rf1}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{fs1}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}172}]:} 0.13236918403095457
+\end{Verbatim}
+            
+    Dividing the coefficient on samesex from our First stage by our Reduced
+form will give us our casual coefficient on morekids from our 2SLS.
+
+Part D asks us to prove that if an instrument is truly random, then our
+casual estimate will be aproximately the same whether or not we add
+controls to the specification.
+
+In order to prove this, we need our controls to be (i) orthogonal to our
+instrument and (2) related to our dependent variable.
+
+I will define orthogonality formally as: given two random variables, we
+define their inner product as follow:
+
+\begin{verbatim}
+        ⟨𝑋,𝑌⟩=cov(𝑋,𝑌)=𝐄[(𝑋−𝐄[𝑋])(𝑌−𝐄[𝑌])]
+\end{verbatim}
+
+I will relax this assumption by allowing predictors that are
+\textasciitilde{}0
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}173}]:} \PY{c+c1}{\PYZsh{}Returns a list of orthogonal predictors to our instrument.}
+          \PY{k}{def} \PY{n+nf}{find\PYZus{}orthogonal}\PY{p}{(}\PY{n}{instrument}\PY{p}{,} \PY{n}{controls}\PY{p}{)}\PY{p}{:}
+              \PY{n}{orthogonal\PYZus{}control\PYZus{}variables} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{controls}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+                  \PY{k}{if} \PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{cov}\PY{p}{(}\PY{n}{instrument}\PY{p}{,} \PY{n}{controls}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.001}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{orthogonal\PYZus{}control\PYZus{}variables}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+              \PY{k}{return} \PY{n}{orthogonal\PYZus{}control\PYZus{}variables}
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}174}]:} \PY{n}{orthogonal\PYZus{}variables} \PY{o}{=} \PY{n}{find\PYZus{}orthogonal}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                                                 \PY{n}{variables}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    Given the list of orthogonal predictors to our instrument, we will now
+test our claim that, given a randomized instrument, whether we add
+controls or not will be irrelevant to the coefficient of our intsrument.
+
+\begin{verbatim}
+We will test this in a two-step procedure. We will test this for only the reduced form and then the first stage form. If it is the case that the coefficient of our instrument is in fact the same when adding control and excluding controls, then our proof will be complete.
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}175}]:} \PY{c+c1}{\PYZsh{}Reduced Form}
+          \PY{n}{orthogonal\PYZus{}controls} \PY{o}{=} \PY{n}{variables}\PY{o}{.}\PY{n}{filter}\PY{p}{(}\PY{n}{orthogonal\PYZus{}variables}\PY{p}{)}
+          \PY{n}{orthogonal\PYZus{}controls}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{rf\PYZus{}wo} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          \PY{n}{rf\PYZus{}w} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{Y}\PY{p}{,} \PY{n}{orthogonal\PYZus{}controls}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}First Stage}
+          \PY{n}{fs\PYZus{}wo} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fs\PYZus{}w} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{orthogonal\PYZus{}controls}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}176}]:} \PY{n}{parameters} \PY{o}{=} \PY{p}{[}\PY{n}{rf\PYZus{}wo}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{rf\PYZus{}w}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{fs\PYZus{}wo}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{fs\PYZus{}w}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{summary\PYZus{}table} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RF without}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RF with}\PY{l+s+s1}{\PYZsq{}}\PYZbs{}
+                                                  \PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FS without}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FS with}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{summary\PYZus{}table}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{parameters}\PY{p}{,}\PY{n}{index}\PY{o}{=}\PY{n}{summary\PYZus{}table}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{,}\PY{n}{ignore\PYZus{}index}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}176}]:}    RF without   RF with  FS without   FS with
+          0    0.009909  0.009821    0.067352  0.067941
+\end{Verbatim}
+            
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{4}
+\item
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}177}]:} \PY{n}{difference} \PY{o}{=} \PY{n}{cm1}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{cm}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{the difference between Iv with and without control variables are: }\PY{l+s+si}{\PYZob{}difference\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}177}]:} 'the difference between Iv with and without control variables are: -0.014753807177271483'
+\end{Verbatim}
+            
+    To see if this difference is signifantly different we will use the same
+procedure as in b but this time we will use bootstrap to construct our
+confidence band.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}178}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{utils} \PY{k}{import} \PY{n}{resample}
+          \PY{c+c1}{\PYZsh{} Generate an empty list to store our difference in coefficience}
+          \PY{n}{difference} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}Generate 1000 replications:}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{}Generate bootstrap sample}
+              \PY{n}{sample} \PY{o}{=} \PY{n}{resample}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+              \PY{n}{variables} \PY{o}{=} \PY{n}{sample}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{control\PYZus{}variables}\PY{p}{]}
+              \PY{n}{variables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{variables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{variables} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{variables}\PY{p}{)}
+              \PY{n}{Y} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+              \PY{n}{Y}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{work}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wagem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}compute the difference in coefficient}
+              \PY{n}{cm} \PY{o}{=} \PY{n}{IV2SLS}\PY{p}{(}\PY{n}{dependent} \PY{o}{=} \PY{n}{Y}\PY{p}{,} \PY{n}{exog} \PY{o}{=} \PY{n}{morekids}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{const}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                      \PY{n}{endog} \PY{o}{=} \PY{n}{morekids}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                      \PY{n}{instruments} \PY{o}{=} \PY{n}{variables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+              \PY{n}{cm1} \PY{o}{=} \PY{n}{IV2SLS}\PY{p}{(}\PY{n}{dependent} \PY{o}{=} \PY{n}{Y}\PY{p}{,}\PYZbs{}
+                      \PY{n}{exog} \PY{o}{=} \PY{n}{variables}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                      \PY{n}{endog} \PY{o}{=} \PY{n}{variables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                      \PY{n}{instruments} \PY{o}{=} \PY{n}{variables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+          
+              \PY{n}{difference}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{cm}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{cm1}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}179}]:} \PY{n}{lbnd} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{percentile}\PY{p}{(}\PY{n}{difference}\PY{p}{,}\PY{l+m+mf}{2.5}\PY{p}{)}
+          \PY{n}{ubnd} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{percentile}\PY{p}{(}\PY{n}{difference}\PY{p}{,}\PY{l+m+mf}{97.5}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}180}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{A 0.95 CI is [}\PY{l+s+si}{\PYZob{}lbnd\PYZcb{}}\PY{l+s+s1}{,}\PY{l+s+si}{\PYZob{}ubnd\PYZcb{}}\PY{l+s+s1}{]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+A 0.95 CI is [-7.8043772812993435,12.009759167372192]
+
+    \end{Verbatim}
+
+    The result that we got from our bootstrap tells us that the difference
+between the coefficience are not significant for a \(\alpha\) of at
+least 0.05.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  The casual effect of having extra kids on mother's decision to work is
+  significant. Given that a family decides on more children, the more
+  likely is the mother to not work. More specifically the casual effect
+  is that given that a family decides to have more children, the
+  mother's likelihood that she choose to stay home is
+  \textasciitilde{}13.2\%. Intuitively this make sense as well since
+  morekids translates into more time spent home.
+\end{enumerate}
+
+    4:
+
+\begin{verbatim}
+In this part we will compare the OLS and IV models for the effect of having a larger number of children on earnings for mothers, fathers, and the family as a whole. 
+\end{verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}181}]:} \PY{n}{dependent\PYZus{}variables} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{dependent\PYZus{}variables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{earnings\PYZus{}mother}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{earningsm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{dependent\PYZus{}variables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{earnings\PYZus{}father}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{earningsd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{dependent\PYZus{}variables}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{earning family}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{famearn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}182}]:} \PY{n}{summary1} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dependent\PYZus{}variable}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OLS no }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OLS controls}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IV no}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{IV controls}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{k}{for} \PY{n}{i}\PY{p}{,}\PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{dependent\PYZus{}variables}\PY{o}{.}\PY{n}{columns}\PY{p}{,}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{}OLS no controls}
+              \PY{n}{ols} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{dependent\PYZus{}variables}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X2}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{const}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+              \PY{n}{morekids} \PY{o}{=} \PY{n}{ols}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              
+              \PY{c+c1}{\PYZsh{}OLS with controls}
+              \PY{n}{ols} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{dependent\PYZus{}variables}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{X2}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+              \PY{n}{morekids1} \PY{o}{=} \PY{n}{ols}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              
+              \PY{c+c1}{\PYZsh{}IV no controls}
+              \PY{n}{IV} \PY{o}{=} \PY{n}{IV2SLS}\PY{p}{(}\PY{n}{dependent} \PY{o}{=}\PY{n}{dependent\PYZus{}variables}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{p}{,} \PY{n}{exog} \PY{o}{=} \PY{n}{X2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{const}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                      \PY{n}{endog} \PY{o}{=} \PY{n}{X2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                      \PY{n}{instruments} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+              \PY{n}{morekids2} \PY{o}{=} \PY{n}{IV}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{c+c1}{\PYZsh{}IV with controls}
+              \PY{n}{IV1} \PY{o}{=} \PY{n}{IV2SLS}\PY{p}{(}\PY{n}{dependent} \PY{o}{=}\PY{n}{dependent\PYZus{}variables}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{p}{,}\PYZbs{}
+                      \PY{n}{exog} \PY{o}{=} \PY{n}{X2}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PYZbs{}
+                      \PY{n}{endog} \PY{o}{=} \PY{n}{X2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PYZbs{}
+                      \PY{n}{instruments} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+              \PY{n}{morekids3} \PY{o}{=} \PY{n}{IV1}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              
+              \PY{c+c1}{\PYZsh{}Append to DataFrame:}
+              \PY{n}{summary1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{n}{morekids}\PY{p}{,} \PY{n}{morekids1}\PY{p}{,}\PY{n}{morekids2}\PY{p}{,} \PY{n}{morekids3}\PY{p}{]}
+              
+              
+              
+              
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}183}]:} \PY{n}{summary1} \PY{o}{=} \PY{n}{summary1}\PY{o}{.}\PY{n}{set\PYZus{}index}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dependent\PYZus{}variable}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{summary1}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}183}]:}                         OLS no   OLS controls        IV no  IV controls
+          Dependent\_variable                                                     
+          earnings\_mother    -3662.022087  -4882.458208 -3654.246745 -3097.655069
+          earnings\_father    -1779.136339    -74.192863 -3155.841664 -3596.780290
+          earning family     -5441.158426  -4956.651071 -6810.088409 -6694.435359
+\end{Verbatim}
+            
+    \begin{verbatim}
+The basic idea is that the OLS overstates the effect on mother's wage given that she has more kids than the IV but understates the effect morekids has on father's earnings. I believe that the OLS follows the path which we would expect, namely that mother's are more likely to suffer a significant decrease in wage not because they have more kids but mother's are more likely to reduce their hours worked. From above calculations we found that mothers are ~17% more likely to stop working if she has morekids. I.e. in the OLS, morekids is confonfounded with the error term. This is likely due to the fact that mother's may be more naturally likely to reduce their hours worked if she has morekids. On the otherhand, for fathers, the OLS is severely understating the effect morekids has on father's wage. This is perhaps also easies to picture in terms of working. Given that a family has morekids, more time to those kids has to be attributed to them, but it also become more costly. So if mother's are more likely to reduce their hours given that they had morekids, father's are more likely to increase their hours to work in order to provide financial stability to the family. However, this confounds the true effect on fathers. Please note that there may be may reasons as to why the OLS is confounded. One other possible explanation for father's may be that there is high returns to earnings for being highly educated and/or white as  a male. 
+\end{verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  If \(y_{3i} = y_{1i} + y_{2i}\) and:
+\end{enumerate}
+
+\(y_{1i} = \beta_1x_i + u_{1i}\)
+
+\(y_{2i} = \beta_2x_i + u_{2i}\)
+
+\(y_{3i} = \beta_3x_i + u_{3i}\)
+
+Where xi is the same in all three equations, then:
+
+\$y\_\{3i\} = y\_\{1i\} + y\_\{2i\} = \beta\emph{1x\_i +
+u}\{1i\}+\beta\emph{2x\_i + u}\{2i\} \$
+
+\(=(\beta_1 + \beta_2)x_i + (u_{1i} + u_{2i})\)
+
+which implies that \(\beta_3 = \beta_1 + \beta_2\)
+
+We can also show that this is true through the first order condition:
+
+\$ \hat{\beta_3} = argmax \frac{1}{N}
+\sum [y_{3i} - (\beta_1 + \beta_2)x_i]\^{}2 \$
+
+Foc:
+
+\$ (\beta\_1 + \beta\emph{2) \sum x\_i\^{}2 = \sum x\_i y}\{3i\} \$
+
+\$ ==\textgreater{} (\beta\_1 + \beta\emph{2) =
+(\sum x\_i\textsuperscript{2)}\{-1\} \sum x\_i y}\{3i\} = \beta\_3 \$
+
+c and d)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}184}]:} \PY{n}{combined\PYZus{}earning\PYZus{}OLS} \PY{o}{=} \PY{n}{summary1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{earnings\PYZus{}mother}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{summary1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{earnings\PYZus{}father}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{earning\PYZus{}family\PYZus{}OLS} \PY{o}{=} \PY{n}{summary1}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{n}{combined\PYZus{}earning\PYZus{}IV} \PY{o}{=} \PY{n}{summary1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{earnings\PYZus{}mother}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{summary1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{earnings\PYZus{}father}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{earning\PYZus{}family\PYZus{}IV} \PY{o}{=} \PY{n}{summary1}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+          
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{summary1}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+                  \PY{n}{combined\PYZus{}earning} \PY{o}{=} \PY{n}{summary1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{earnings\PYZus{}mother}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+} \PY{n}{summary1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{earnings\PYZus{}father}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                  \PY{n}{earning\PYZus{}family} \PY{o}{=} \PY{n}{summary1}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+                  \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta 3: }\PY{l+s+si}{\PYZob{}earning\PYZus{}family\PYZcb{}}\PY{l+s+s1}{ and beta1 + beta3:}\PY{l+s+si}{\PYZob{}combined\PYZus{}earning\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+OLS no 
+beta 3: -5441.158425694542 and beta1 + beta3:-5441.15842569454
+OLS controls
+beta 3: -4956.651070957119 and beta1 + beta3:-4956.651070957123
+IV no
+beta 3: -6810.088409263641 and beta1 + beta3:-6810.088409259915
+IV controls
+beta 3: -6694.435358867049 and beta1 + beta3:-6694.435358879622
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}185}]:} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{summary1}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+              \PY{n}{mothers\PYZus{}frac} \PY{o}{=} \PY{n}{summary1}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{earnings\PYZus{}mother}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{/} \PY{n}{summary1}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mother share of the effect of total family income: }\PY{l+s+si}{\PYZob{}mothers\PYZus{}frac\PYZcb{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+OLS no 
+Mother share of the effect of total family income: 0.6730225073752009\%
+OLS controls
+Mother share of the effect of total family income: 0.985031655142117\%
+IV no
+Mother share of the effect of total family income: 0.5365931432696388\%
+IV controls
+Mother share of the effect of total family income: 0.46272088720294596\%
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+We can see that for the OLS: Mother's effect is driving the effect of having more kids on total income. The difference however may be due to that mother's are more likely to stop working after having more kids than 2 whereas fathers are more likely to continue working. Controlling for more variables, mother's effect is significantly magnified.
+
+We can however see that the pattern does not hold for the IV estimate. Without the control variables, the share of the effect is nearly equal, with mother's having a slightly more effect. However, conrolling for our variables, father's effect is now the biggest share of the total effect. I am not 100% sure why this is the case. However, if we assume IV to be the true model, it may be such that: given a family decides on more than 2 children, the burden of more children is shared by both parents.
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{4}
+\item
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}186}]:} \PY{c+c1}{\PYZsh{}[d=1, z=1] \PYZhy{} [d=1,z=0]}
+          \PY{n}{d1z1} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+          \PY{n}{d1z0} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+          
+          
+          \PY{n}{count\PYZus{}AT} \PY{o}{=} \PY{n}{d1z0}
+          
+          \PY{n}{frac\PYZus{}AT} \PY{o}{=} \PY{n}{count\PYZus{}AT}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fraction of }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{always takers}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{: }\PY{l+s+si}{\PYZob{}frac\PYZus{}AT\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fraction of 'always takers': 0.16774578256695663
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}187}]:} \PY{n}{d0z1} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+          \PY{n}{d0z0} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{count\PYZus{}NT} \PY{o}{=} \PY{n}{d0z1}
+          \PY{n}{frac\PYZus{}NT} \PY{o}{=} \PY{n}{count\PYZus{}NT}\PY{o}{/}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fraction of }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{never takers}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{: }\PY{l+s+si}{\PYZob{}frac\PYZus{}NT\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fraction of 'never takers': 0.2999209165225261
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}188}]:} \PY{n}{frac\PYZus{}C} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{frac\PYZus{}AT} \PY{o}{\PYZhy{}} \PY{n}{frac\PYZus{}NT}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Fraction of }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{compliers}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{: }\PY{l+s+si}{\PYZob{}frac\PYZus{}C\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Fraction of 'compliers': 0.5323333009105173
+
+    \end{Verbatim}
+
+    compare the fractions of AT/NT/C for four subgroups of families based on
+mother's education: less than 12 years, 12 years, between 13 and 15
+years, and 16+ years of education.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}189}]:} \PY{n}{less\PYZus{}12} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{12}\PY{p}{]}
+          \PY{n}{exactly\PYZus{}12} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{12}\PY{p}{]}
+          \PY{n}{between\PYZus{}13\PYZus{}15} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{12}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{]}
+          \PY{n}{more\PYZus{}than\PYZus{}16} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{16}\PY{p}{]}
+          
+          \PY{n}{subgroups} \PY{o}{=} \PY{p}{[}\PY{n}{less\PYZus{}12}\PY{p}{,} \PY{n}{exactly\PYZus{}12}\PY{p}{,} \PY{n}{between\PYZus{}13\PYZus{}15}\PY{p}{,} \PY{n}{more\PYZus{}than\PYZus{}16}\PY{p}{]}
+          \PY{n}{names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{less than 12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exactly\PYZus{}12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{between\PYZus{}13\PYZus{}15}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{more\PYZus{}than\PYZus{}16}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{k}{for} \PY{n}{group}\PY{p}{,} \PY{n}{name} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{n}{subgroups}\PY{p}{,} \PY{n}{names}\PY{p}{)}\PY{p}{:}
+              \PY{n}{AT} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{group}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{group}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{group}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{group}\PY{p}{)}
+              \PY{n}{NT} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{group}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{group}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{group}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{==}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{group}\PY{p}{)}
+              \PY{n}{C} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{AT} \PY{o}{\PYZhy{}} \PY{n}{NT}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}name\PYZcb{}}\PY{l+s+s2}{:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ AT: }\PY{l+s+si}{\PYZob{}AT\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ NT: }\PY{l+s+si}{\PYZob{}NT\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ C: }\PY{l+s+si}{\PYZob{}C\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+less than 12:
+ AT: 0.2338877338877339
+ NT: 0.2301999801999802
+ C: 0.5359122859122859
+exactly\_12:
+ AT: 0.16073233837665565
+ NT: 0.3053151933654324
+ C: 0.533952468257912
+between\_13\_15:
+ AT: 0.15330540809555407
+ NT: 0.3127695753151958
+ C: 0.5339250165892502
+more\_than\_16:
+ AT: 0.13054100099649618
+ NT: 0.3503166286283712
+ C: 0.5191423703751326
+
+    \end{Verbatim}
+
+    \begin{verbatim}
+What stood out to me is that there is a higher fraction of never takers as years of education increases. This could be an indication that same sex is decrasing in education. Similarly, Always takers are decreasing as years of education is increasing. i.e families that have higher education also have less children. 
+
+Those who have 16+ years of education are less likely to be AT or C and more likely to be NT. Those with educ between
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\setcounter{enumi}{5}
+\item
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}190}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+          
+          \PY{k}{def} \PY{n+nf}{regression\PYZus{}results}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    Returns Coefficients and Std Errors for Model}
+          \PY{l+s+sd}{    model \PYZhy{} model, assumed to be fitted if y = None}
+          \PY{l+s+sd}{    X \PYZhy{} Covariate Matrix}
+          \PY{l+s+sd}{    y \PYZhy{} Dependent Array}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+              \PY{n}{coeffs} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{coef\PYZus{}}
+              
+              \PY{n}{resids} \PY{o}{=} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+              
+              \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Coeff}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{coeffs}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}191}]:} \PY{k}{def} \PY{n+nf}{regression\PYZus{}results}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+          \PY{l+s+sd}{    Returns Coefficients and Std Errors for Model}
+          \PY{l+s+sd}{    model \PYZhy{} model, assumed to be fitted if y = None}
+          \PY{l+s+sd}{    X \PYZhy{} Covariate Matrix}
+          \PY{l+s+sd}{    y \PYZhy{} Dependent Array}
+          \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+              \PY{n}{coeffs} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{coef\PYZus{}}
+              
+              \PY{n}{resids} \PY{o}{=} \PY{n}{y} \PY{o}{\PYZhy{}} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+              
+              \PY{k}{return} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Coeff}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{n}{coeffs}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{n}{X}\PY{o}{.}\PY{n}{columns}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}192}]:} \PY{n}{Z} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{samesex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{x} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{lm} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n}{lm}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{Z}\PY{p}{,}\PY{n}{x}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{first\PYZhy{}stage results:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{display}\PY{p}{(}\PY{n}{sm}\PY{o}{.}\PY{n}{OLS}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{Z}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm\PYZlt{}21}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{21}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utah}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{87}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}
+          \PY{n}{X\PYZus{}pred} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{lm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{Z}\PY{p}{)} \PY{p}{,} \PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{morekids}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{n}{x}\PY{o}{.}\PY{n}{index}\PY{p}{)}\PY{p}{)}
+          
+          
+          \PY{n}{vars\PYZus{}} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm\PYZlt{}12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PYZbs{}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{agefstm\PYZlt{}21}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hispm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blackm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{whitem}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utah}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{vars\PYZus{}}\PY{p}{:}
+              \PY{n}{y} \PY{o}{=} \PY{n}{df}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+              \PY{n}{lm}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}pred}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+              \PY{n}{results} \PY{o}{=} \PY{n}{regression\PYZus{}results}\PY{p}{(}\PY{n}{lm}\PY{p}{,} \PY{n}{X\PYZus{}pred}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+              
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Compliers   }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{i + }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZca{}15\PYZcb{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{results[}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{Coeff}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{].sum():.5f\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sample Mean }\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{i + }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:\PYZca{}15\PYZcb{}}\PY{l+s+s2}{\PYZob{}}\PY{l+s+s2}{df[i].mean():.5f\PYZcb{} }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+first-stage results:
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<class 'statsmodels.iolib.summary.Summary'>
+"""
+                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:               morekids   R-squared:                       0.005
+Model:                            OLS   Adj. R-squared:                  0.005
+Method:                 Least Squares   F-statistic:                     1152.
+Date:                Fri, 17 May 2019   Prob (F-statistic):          6.87e-252
+Time:                        03:16:49   Log-Likelihood:            -1.6317e+05
+No. Observations:              236459   AIC:                         3.264e+05
+Df Residuals:                  236457   BIC:                         3.264e+05
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P>|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const          0.3391      0.001    240.375      0.000       0.336       0.342
+samesex        0.0674      0.002     33.940      0.000       0.063       0.071
+==============================================================================
+Omnibus:                     9494.639   Durbin-Watson:                   1.968
+Prob(Omnibus):                  0.000   Jarque-Bera (JB):            39431.027
+Skew:                           0.521   Prob(JB):                         0.00
+Kurtosis:                       1.292   Cond. No.                         2.63
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+"""
+    \end{verbatim}
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Compliers      educm<12:   0.14313
+Sample Mean    educm<12:   0.17087 
+
+Compliers       educm:     12.48400
+Sample Mean     educm:     12.42263 
+
+Compliers        agem:     30.19062
+Sample Mean      agem:     30.36734 
+
+Compliers      agefstm:    20.97587
+Sample Mean    agefstm:    20.84279 
+
+Compliers     agefstm<21:  0.47131
+Sample Mean   agefstm<21:  0.49717 
+
+Compliers       hispm:     0.02457
+Sample Mean     hispm:     0.02510 
+
+Compliers       blackm:    0.03892
+Sample Mean     blackm:    0.04971 
+
+Compliers       whitem:    0.91292
+Sample Mean     whitem:    0.89673 
+
+Compliers        utah:     0.00853
+Sample Mean      utah:     0.01052 
+
+
+    \end{Verbatim}
+
+    \subsubsection{Part 2}\label{part-2}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}193}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logwaged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{waged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          
+          \PY{n}{train}\PY{p}{,}\PY{n}{test} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{16}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.75}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{16}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mf}{0.75}\PY{p}{)}\PY{p}{]}
+          \PY{k}{assert} \PY{n+nb}{len}\PY{p}{(}\PY{n}{train}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{20923}             
+          \PY{k}{assert} \PY{n+nb}{len}\PY{p}{(}\PY{n}{test}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{7065} 
+\end{Verbatim}
+
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Estimate a simple OLS model on teh estimation sample that includes
+  age, a set of dummies for the state of residence, and interactions of
+  the state of residence with age. Since tehre are 51 states, this model
+  has a constant, age, 50 state dummies, 50 interactions of age with
+  state-\/- totalling 100 variables in addition to a constant.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}194}]:} \PY{n}{Y\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}test} \PY{o}{=} \PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logwaged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logwaged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}Train\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+          \PY{c+c1}{\PYZsh{}Adds a dummy for all the states. }
+          \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{dummies} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{prefix} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{drop\PYZus{}first} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{educD} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{51}\PY{p}{)}\PY{p}{]}
+          \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{dummies}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{left\PYZus{}index} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{right\PYZus{}index} \PY{o}{=} \PY{k+kc}{True} \PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Adding interaction 1[age*state]}
+          \PY{n}{state\PYZus{}list} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+          \PY{k}{for} \PY{n}{st} \PY{o+ow}{in} \PY{n}{state\PYZus{}list}\PY{p}{:}
+              \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged*st\PYZus{}}\PY{l+s+si}{\PYZob{}st\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{*} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}}\PY{l+s+si}{\PYZob{}st\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+          
+          \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}Test\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+          \PY{c+c1}{\PYZsh{}Adds a dummy for all the states. }
+          \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{)}
+          \PY{n}{X\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{dummies} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{get\PYZus{}dummies}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{prefix} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{drop\PYZus{}first} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{educD} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{51}\PY{p}{)}\PY{p}{]}
+          \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{dummies}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{left}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{left\PYZus{}index} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{right\PYZus{}index} \PY{o}{=} \PY{k+kc}{True} \PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}Adding interaction 1[age*state]}
+          \PY{n}{state\PYZus{}list1} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{unique}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]}
+          \PY{k}{for} \PY{n}{st} \PY{o+ow}{in} \PY{n}{state\PYZus{}list1}\PY{p}{:}
+              \PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged*st\PYZus{}}\PY{l+s+si}{\PYZob{}st\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{X\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{*} \PY{n}{X\PYZus{}test}\PY{p}{[}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}}\PY{l+s+si}{\PYZob{}st\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+          
+          \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{add\PYZus{}constant}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+          
+          \PY{k}{assert} \PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{102}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}195}]:} \PY{n}{linear\PYZus{}model} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{n}{fit\PYZus{}intercept}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+          \PY{n}{lm} \PY{o}{=} \PY{n}{linear\PYZus{}model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{Y\PYZus{}train}\PY{p}{)}
+          
+          \PY{n}{res\PYZus{}26} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+          \PY{n}{res\PYZus{}35} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+          
+          \PY{c+c1}{\PYZsh{} Predicting earnings for men age 26 for each state:}
+          \PY{k}{for} \PY{n}{st} \PY{o+ow}{in} \PY{n}{state\PYZus{}list}\PY{p}{:}
+              \PY{n}{subset} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{26}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{st}\PY{p}{)}\PY{p}{]}
+              \PY{n}{subset2} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{35}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{st}\PY{p}{)}\PY{p}{]}
+              
+              \PY{k}{if}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{subset}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{predict26} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{subset}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{res\PYZus{}26}\PY{p}{[}\PY{n}{st}\PY{p}{]} \PY{o}{=} \PY{n}{predict26}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{predict26} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{n}{res\PYZus{}26}\PY{p}{[}\PY{n}{st}\PY{p}{]} \PY{o}{=} \PY{n}{predict26}
+              \PY{k}{if}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{subset2}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{predict35} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{subset2}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{res\PYZus{}35}\PY{p}{[}\PY{n}{st}\PY{p}{]} \PY{o}{=} \PY{n}{predict35}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{predict26} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{n}{res\PYZus{}35}\PY{p}{[}\PY{n}{st}\PY{p}{]} \PY{o}{=} \PY{n}{predict35}
+                  
+                  
+              
+              
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean logWage for 26 year old men in }\PY{l+s+si}{\PYZob{}st\PYZcb{}}\PY{l+s+s2}{ is: }\PY{l+s+si}{\PYZob{}predict26\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean logWage for 35 year old men in }\PY{l+s+si}{\PYZob{}st\PYZcb{}}\PY{l+s+s2}{ is: }\PY{l+s+si}{\PYZob{}predict35\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              
+          \PY{n}{predicted\PYZus{}linear} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{res\PYZus{}26}\PY{p}{,}\PY{n}{res\PYZus{}35} \PY{p}{]}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{26yr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{35yr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Mean logWage for 26 year old men in 12 is: 3.2717601245733716
+Mean logWage for 35 year old men in 12 is: 3.4651617895689193
+
+Mean logWage for 26 year old men in 13 is: 0
+Mean logWage for 35 year old men in 13 is: 3.3134837381463784
+
+Mean logWage for 26 year old men in 14 is: 3.2334233397212353
+Mean logWage for 35 year old men in 14 is: 3.562858034305682
+
+Mean logWage for 26 year old men in 15 is: 3.267129126515728
+Mean logWage for 35 year old men in 15 is: 3.5172446348396273
+
+Mean logWage for 26 year old men in 16 is: 3.2702906356089603
+Mean logWage for 35 year old men in 16 is: 3.6359987837259626
+
+Mean logWage for 26 year old men in 21 is: 3.3713856495322636
+Mean logWage for 35 year old men in 21 is: 3.5924816179754573
+
+Mean logWage for 26 year old men in 22 is: 3.4693173025712447
+Mean logWage for 35 year old men in 22 is: 3.692556786412985
+
+Mean logWage for 26 year old men in 23 is: 3.2347382692149638
+Mean logWage for 35 year old men in 23 is: 3.565245484887405
+
+Mean logWage for 26 year old men in 31 is: 3.3142449764393667
+Mean logWage for 35 year old men in 31 is: 3.5628739513850736
+
+Mean logWage for 26 year old men in 32 is: 3.3531761619456972
+Mean logWage for 35 year old men in 32 is: 3.540742931139141
+
+Mean logWage for 26 year old men in 33 is: 3.3804333537562097
+Mean logWage for 35 year old men in 33 is: 3.6292086154610232
+
+Mean logWage for 26 year old men in 34 is: 3.401369632177613
+Mean logWage for 35 year old men in 34 is: 3.624990254748132
+
+Mean logWage for 26 year old men in 35 is: 3.2412459070326123
+Mean logWage for 35 year old men in 35 is: 3.4489158304082825
+
+Mean logWage for 26 year old men in 41 is: 3.2923954414568324
+Mean logWage for 35 year old men in 41 is: 3.533992535771138
+
+Mean logWage for 26 year old men in 42 is: 3.2509820743583835
+Mean logWage for 35 year old men in 42 is: 3.436029041598929
+
+Mean logWage for 26 year old men in 43 is: 3.1483810316227054
+Mean logWage for 35 year old men in 43 is: 3.49410727197575
+
+Mean logWage for 26 year old men in 44 is: 3.3195361421793326
+Mean logWage for 35 year old men in 44 is: 3.383633551478337
+
+Mean logWage for 26 year old men in 45 is: 2.932712936817245
+Mean logWage for 35 year old men in 45 is: 3.374266838222417
+
+Mean logWage for 26 year old men in 46 is: 3.1031561003660597
+Mean logWage for 35 year old men in 46 is: 3.3468682050506215
+
+Mean logWage for 26 year old men in 47 is: 3.1029283072385265
+Mean logWage for 35 year old men in 47 is: 3.4478768021580652
+
+Mean logWage for 26 year old men in 51 is: 0
+Mean logWage for 35 year old men in 51 is: 3.562871736107328
+
+Mean logWage for 26 year old men in 52 is: 3.3277186790070177
+Mean logWage for 35 year old men in 52 is: 3.6139206181608907
+
+Mean logWage for 26 year old men in 53 is: 0
+Mean logWage for 35 year old men in 53 is: 3.4917363504896883
+
+Mean logWage for 26 year old men in 54 is: 3.2082623965726413
+Mean logWage for 35 year old men in 54 is: 3.566447261943503
+
+Mean logWage for 26 year old men in 55 is: 3.1965792640160697
+Mean logWage for 35 year old men in 55 is: 3.52236171225431
+
+Mean logWage for 26 year old men in 56 is: 3.1534234389245417
+Mean logWage for 35 year old men in 56 is: 3.4454136080258997
+
+Mean logWage for 26 year old men in 57 is: 3.206107835009354
+Mean logWage for 35 year old men in 57 is: 3.4340393623174705
+
+Mean logWage for 26 year old men in 58 is: 3.312156397955938
+Mean logWage for 35 year old men in 58 is: 3.490870708956865
+
+Mean logWage for 26 year old men in 59 is: 3.233833178997617
+Mean logWage for 35 year old men in 59 is: 3.4654099638562754
+
+Mean logWage for 26 year old men in 61 is: 3.1654182497993246
+Mean logWage for 35 year old men in 61 is: 3.492016276077808
+
+Mean logWage for 26 year old men in 62 is: 3.160647076031814
+Mean logWage for 35 year old men in 62 is: 3.444289160925115
+
+Mean logWage for 26 year old men in 63 is: 0
+Mean logWage for 35 year old men in 63 is: 3.450434293989757
+
+Mean logWage for 26 year old men in 64 is: 3.068487047255778
+Mean logWage for 35 year old men in 64 is: 3.3785955512856822
+
+Mean logWage for 26 year old men in 71 is: 3.045247607202863
+Mean logWage for 35 year old men in 71 is: 3.375278482879546
+
+Mean logWage for 26 year old men in 72 is: 0
+Mean logWage for 35 year old men in 72 is: 3.637904259311336
+
+Mean logWage for 26 year old men in 73 is: 3.1640104830420417
+Mean logWage for 35 year old men in 73 is: 3.435718550023746
+
+Mean logWage for 26 year old men in 74 is: 3.3018346187152816
+Mean logWage for 35 year old men in 74 is: 3.5565981625807184
+
+Mean logWage for 26 year old men in 81 is: 0
+Mean logWage for 35 year old men in 81 is: 3.2735866002981187
+
+Mean logWage for 26 year old men in 82 is: 3.153527983264119
+Mean logWage for 35 year old men in 82 is: 3.4160031706210723
+
+Mean logWage for 26 year old men in 83 is: 3.475992002591557
+Mean logWage for 35 year old men in 83 is: 3.398176505633602
+
+Mean logWage for 26 year old men in 84 is: 3.2967442787274304
+Mean logWage for 35 year old men in 84 is: 3.5158031334039124
+
+Mean logWage for 26 year old men in 85 is: 3.079842610654853
+Mean logWage for 35 year old men in 85 is: 3.34080027011717
+
+Mean logWage for 26 year old men in 86 is: 3.2159627387965415
+Mean logWage for 35 year old men in 86 is: 3.4646777377032896
+
+Mean logWage for 26 year old men in 87 is: 3.1827669861354795
+Mean logWage for 35 year old men in 87 is: 3.429743066494348
+
+Mean logWage for 26 year old men in 88 is: 0
+Mean logWage for 35 year old men in 88 is: 3.613799794301683
+
+Mean logWage for 26 year old men in 91 is: 3.3699002363127883
+Mean logWage for 35 year old men in 91 is: 3.5520181480102826
+
+Mean logWage for 26 year old men in 92 is: 3.217800314759366
+Mean logWage for 35 year old men in 92 is: 3.4669482933068854
+
+Mean logWage for 26 year old men in 93 is: 3.2956387342979157
+Mean logWage for 35 year old men in 93 is: 3.546530291798917
+
+Mean logWage for 26 year old men in 94 is: 3.379091248810658
+Mean logWage for 35 year old men in 94 is: 3.8093605587597974
+
+Mean logWage for 26 year old men in 95 is: 3.0766893348095183
+Mean logWage for 35 year old men in 95 is: 3.3825878313862816
+
+
+    \end{Verbatim}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\item
+\end{enumerate}
+
+Using K-fold cross validation within the estimation sample, estimate a
+lasso version of the same model, and use this model to predict earnings
+again.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}196}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Lasso regression with  5 fold cross validation }
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LassoCV}
+          \PY{n}{lasso} \PY{o}{=} \PY{n}{LassoCV}\PY{p}{(}\PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+          \PY{n}{ls} \PY{o}{=} \PY{n}{lasso}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{Y\PYZus{}train}\PY{p}{)}
+          
+          
+          \PY{n}{res1\PYZus{}26} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+          \PY{n}{res1\PYZus{}35} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+          \PY{c+c1}{\PYZsh{} Predicting earnings for men age 26 for each state:}
+          \PY{k}{for} \PY{n}{st} \PY{o+ow}{in} \PY{n}{state\PYZus{}list}\PY{p}{:}
+              \PY{n}{subset} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{26}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{st}\PY{p}{)}\PY{p}{]}
+              \PY{n}{subset2} \PY{o}{=} \PY{n}{X\PYZus{}train}\PY{p}{[}\PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{35}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{train}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n}{st}\PY{p}{)}\PY{p}{]}
+              
+              \PY{k}{if}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{subset}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{predict26} \PY{o}{=} \PY{n}{ls}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{subset}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{res1\PYZus{}26}\PY{p}{[}\PY{n}{st}\PY{p}{]} \PY{o}{=} \PY{n}{predict26}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{predict26} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{n}{res1\PYZus{}26}\PY{p}{[}\PY{n}{st}\PY{p}{]} \PY{o}{=} \PY{n}{predict26}
+              \PY{k}{if}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{subset2}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{predict35} \PY{o}{=} \PY{n}{ls}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{subset2}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+                  \PY{n}{res1\PYZus{}35}\PY{p}{[}\PY{n}{st}\PY{p}{]} \PY{o}{=} \PY{n}{predict35}
+              \PY{k}{else}\PY{p}{:}
+                  \PY{n}{predict26} \PY{o}{=} \PY{l+m+mi}{0}
+                  \PY{n}{res1\PYZus{}35}\PY{p}{[}\PY{n}{st}\PY{p}{]} \PY{o}{=} \PY{n}{predict35}
+                  
+                  
+              
+              
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean logWage for 26 year old men in }\PY{l+s+si}{\PYZob{}st\PYZcb{}}\PY{l+s+s2}{ is: }\PY{l+s+si}{\PYZob{}predict26\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean logWage for 35 year old men in }\PY{l+s+si}{\PYZob{}st\PYZcb{}}\PY{l+s+s2}{ is: }\PY{l+s+si}{\PYZob{}predict35\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              
+          \PY{n}{predicted\PYZus{}lasso} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{[}\PY{n}{res\PYZus{}26}\PY{p}{,}\PY{n}{res\PYZus{}35} \PY{p}{]}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{26yr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{35yr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Mean logWage for 26 year old men in 12 is: 3.309726258860922
+Mean logWage for 35 year old men in 12 is: 3.50589020758165
+
+Mean logWage for 26 year old men in 13 is: 0
+Mean logWage for 35 year old men in 13 is: 3.5058902075816496
+
+Mean logWage for 26 year old men in 14 is: 3.309726258860922
+Mean logWage for 35 year old men in 14 is: 3.505890207581649
+
+Mean logWage for 26 year old men in 15 is: 3.309726258860922
+Mean logWage for 35 year old men in 15 is: 3.50589020758165
+
+Mean logWage for 26 year old men in 16 is: 3.309726258860922
+Mean logWage for 35 year old men in 16 is: 3.505890207581649
+
+Mean logWage for 26 year old men in 21 is: 3.3457700773448744
+Mean logWage for 35 year old men in 21 is: 3.554410732463893
+
+Mean logWage for 26 year old men in 22 is: 3.4040295671444754
+Mean logWage for 35 year old men in 22 is: 3.6328369687325877
+
+Mean logWage for 26 year old men in 23 is: 3.3097262588609215
+Mean logWage for 35 year old men in 23 is: 3.5058902075816505
+
+Mean logWage for 26 year old men in 31 is: 3.309726258860922
+Mean logWage for 35 year old men in 31 is: 3.505890207581651
+
+Mean logWage for 26 year old men in 32 is: 3.309726258860922
+Mean logWage for 35 year old men in 32 is: 3.505890207581649
+
+Mean logWage for 26 year old men in 33 is: 3.36309822047241
+Mean logWage for 35 year old men in 33 is: 3.577737078981731
+
+Mean logWage for 26 year old men in 34 is: 3.3515092806149123
+Mean logWage for 35 year old men in 34 is: 3.5621365830197127
+
+Mean logWage for 26 year old men in 35 is: 3.309726258860922
+Mean logWage for 35 year old men in 35 is: 3.50589020758165
+
+Mean logWage for 26 year old men in 41 is: 3.309726258860922
+Mean logWage for 35 year old men in 41 is: 3.5058902075816487
+
+Mean logWage for 26 year old men in 42 is: 3.309726258860922
+Mean logWage for 35 year old men in 42 is: 3.5058902075816487
+
+Mean logWage for 26 year old men in 43 is: 3.309726258860922
+Mean logWage for 35 year old men in 43 is: 3.50589020758165
+
+Mean logWage for 26 year old men in 44 is: 3.309726258860922
+Mean logWage for 35 year old men in 44 is: 3.50589020758165
+
+Mean logWage for 26 year old men in 45 is: 3.309726258860922
+Mean logWage for 35 year old men in 45 is: 3.5058902075816496
+
+Mean logWage for 26 year old men in 46 is: 3.309726258860922
+Mean logWage for 35 year old men in 46 is: 3.50589020758165
+
+Mean logWage for 26 year old men in 47 is: 3.309726258860922
+Mean logWage for 35 year old men in 47 is: 3.5058902075816487
+
+Mean logWage for 26 year old men in 51 is: 0
+Mean logWage for 35 year old men in 51 is: 3.505890207581649
+
+Mean logWage for 26 year old men in 52 is: 3.309726258860922
+Mean logWage for 35 year old men in 52 is: 3.5058902075816487
+
+Mean logWage for 26 year old men in 53 is: 0
+Mean logWage for 35 year old men in 53 is: 3.5058902075816496
+
+Mean logWage for 26 year old men in 54 is: 3.309726258860922
+Mean logWage for 35 year old men in 54 is: 3.5058902075816496
+
+Mean logWage for 26 year old men in 55 is: 3.309726258860922
+Mean logWage for 35 year old men in 55 is: 3.50589020758165
+
+Mean logWage for 26 year old men in 56 is: 3.309726258860922
+Mean logWage for 35 year old men in 56 is: 3.505890207581649
+
+Mean logWage for 26 year old men in 57 is: 3.309726258860922
+Mean logWage for 35 year old men in 57 is: 3.505890207581649
+
+Mean logWage for 26 year old men in 58 is: 3.309726258860922
+Mean logWage for 35 year old men in 58 is: 3.5058902075816496
+
+Mean logWage for 26 year old men in 59 is: 3.309726258860922
+Mean logWage for 35 year old men in 59 is: 3.5058902075816505
+
+Mean logWage for 26 year old men in 61 is: 3.309726258860922
+Mean logWage for 35 year old men in 61 is: 3.5058902075816487
+
+Mean logWage for 26 year old men in 62 is: 3.309726258860922
+Mean logWage for 35 year old men in 62 is: 3.5058902075816496
+
+Mean logWage for 26 year old men in 63 is: 0
+Mean logWage for 35 year old men in 63 is: 3.505890207581648
+
+Mean logWage for 26 year old men in 64 is: 3.309726258860922
+Mean logWage for 35 year old men in 64 is: 3.50589020758165
+
+Mean logWage for 26 year old men in 71 is: 3.309726258860922
+Mean logWage for 35 year old men in 71 is: 3.50589020758165
+
+Mean logWage for 26 year old men in 72 is: 0
+Mean logWage for 35 year old men in 72 is: 3.5058902075816496
+
+Mean logWage for 26 year old men in 73 is: 3.309726258860922
+Mean logWage for 35 year old men in 73 is: 3.5058902075816483
+
+Mean logWage for 26 year old men in 74 is: 3.31579192255747
+Mean logWage for 35 year old men in 74 is: 3.514055524096233
+
+Mean logWage for 26 year old men in 81 is: 0
+Mean logWage for 35 year old men in 81 is: 3.50589020758165
+
+Mean logWage for 26 year old men in 82 is: 3.309726258860922
+Mean logWage for 35 year old men in 82 is: 3.50589020758165
+
+Mean logWage for 26 year old men in 83 is: 3.309726258860922
+Mean logWage for 35 year old men in 83 is: 3.5058902075816496
+
+Mean logWage for 26 year old men in 84 is: 3.3097262588609224
+Mean logWage for 35 year old men in 84 is: 3.5058902075816487
+
+Mean logWage for 26 year old men in 85 is: 3.309726258860922
+Mean logWage for 35 year old men in 85 is: 3.50589020758165
+
+Mean logWage for 26 year old men in 86 is: 3.309726258860922
+Mean logWage for 35 year old men in 86 is: 3.5058902075816483
+
+Mean logWage for 26 year old men in 87 is: 3.309726258860922
+Mean logWage for 35 year old men in 87 is: 3.5058902075816487
+
+Mean logWage for 26 year old men in 88 is: 0
+Mean logWage for 35 year old men in 88 is: 3.5058902075816496
+
+Mean logWage for 26 year old men in 91 is: 3.309726258860922
+Mean logWage for 35 year old men in 91 is: 3.505890207581649
+
+Mean logWage for 26 year old men in 92 is: 3.309726258860922
+Mean logWage for 35 year old men in 92 is: 3.5058902075816487
+
+Mean logWage for 26 year old men in 93 is: 3.316788462347684
+Mean logWage for 35 year old men in 93 is: 3.5153970199676747
+
+Mean logWage for 26 year old men in 94 is: 3.309726258860922
+Mean logWage for 35 year old men in 94 is: 3.5058902075816496
+
+Mean logWage for 26 year old men in 95 is: 3.309726258860922
+Mean logWage for 35 year old men in 95 is: 3.50589020758165
+
+
+    \end{Verbatim}
+
+    Based on the two models, what is the 'best' state for young men with a
+college degree? What is the best for men age 35?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}197}]:} \PY{n}{best\PYZus{}26\PYZus{}linear} \PY{o}{=} \PY{n}{predicted\PYZus{}linear}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{26yr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{idxmax}\PY{p}{(}\PY{p}{)}
+          \PY{n}{best\PYZus{}35\PYZus{}linear} \PY{o}{=} \PY{n}{predicted\PYZus{}linear}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{35yr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{idxmax}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OLS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The state to live in for 26 year old is: }\PY{l+s+si}{\PYZob{}best\PYZus{}26\PYZus{}linear\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The state to live in for 26 year old is: }\PY{l+s+si}{\PYZob{}best\PYZus{}35\PYZus{}linear\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{n}{best\PYZus{}26\PYZus{}lasso} \PY{o}{=} \PY{n}{predicted\PYZus{}lasso}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{26yr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{idxmax}\PY{p}{(}\PY{p}{)}
+          \PY{n}{best\PYZus{}35\PYZus{}lasso} \PY{o}{=} \PY{n}{predicted\PYZus{}lasso}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{35yr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{idxmax}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lasso}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The state to live in for 26 year old is: }\PY{l+s+si}{\PYZob{}best\PYZus{}26\PYZus{}lasso\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The state to live in for 26 year old is: }\PY{l+s+si}{\PYZob{}best\PYZus{}35\PYZus{}lasso\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+OLS
+The state to live in for 26 year old is: 83
+The state to live in for 26 year old is: 94
+Lasso
+The state to live in for 26 year old is: 83
+The state to live in for 26 year old is: 94
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}221}]:} \PY{n}{X\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{st\PYZus{}53}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}
+          \PY{n}{X\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged*st\PYZus{}53}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}224}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+          
+          \PY{n}{linear\PYZus{}pred} \PY{o}{=} \PY{n}{lm}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+          \PY{n}{lasso\PYZus{}pred} \PY{o}{=} \PY{n}{ls}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+          \PY{n}{linear\PYZus{}RMSE} \PY{o}{=} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{linear\PYZus{}pred}\PY{p}{,} \PY{n}{Y\PYZus{}test}\PY{p}{)}
+          \PY{n}{lasso\PYZus{}RMSE} \PY{o}{=} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{lasso\PYZus{}pred}\PY{p}{,} \PY{n}{Y\PYZus{}test}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Linear Model RMSE: }\PY{l+s+si}{\PYZob{}linear\PYZus{}RMSE\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Lasso Model RMSE: }\PY{l+s+si}{\PYZob{}lasso\PYZus{}RMSE\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Linear Model RMSE: 1.0153703152743023
+Lasso Model RMSE: 0.26828621411714026
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}229}]:} \PY{n}{final\PYZus{}df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{o}{.}\PY{l+m+mi}{75}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{educd}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+m+mi}{16}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logwaged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{final\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lin\PYZus{}pred}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{linear\PYZus{}pred}
+          \PY{n}{final\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{las\PYZus{}pred}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lasso\PYZus{}pred}
+          \PY{n}{final\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ols RSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{final\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logwaged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{final\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lin\PYZus{}pred}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{final\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lasso RSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{final\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{logwaged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{final\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{las\PYZus{}pred}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}final\PYZus{}df.sort\PYZus{}values(\PYZsq{}aged\PYZsq{}, inplace = True)}
+          \PY{n}{grouped} \PY{o}{=} \PY{n}{final\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{scatterplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ols RSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{OLS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{grouped}\PY{p}{)}
+          \PY{n}{sns}\PY{o}{.}\PY{n}{scatterplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{aged}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lasso RSS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lasso}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{grouped}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{OLS vs Lasso by Age of Dad (RSS)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Dad Age}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Residual Sum of Squares}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+          
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_102_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
